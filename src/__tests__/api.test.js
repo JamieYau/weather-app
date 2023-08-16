@@ -1,8 +1,8 @@
-import fetchData from "../modules/api";
+import weatherAPI from "../modules/weatherAPI";
 
 describe("fetchData", () => {
   it("fetches data", async () => {
-    const data = await fetchData("New York");
+    const data = await weatherAPI.fetchData("New York");
     expect(data).toBeDefined();
   });
 });

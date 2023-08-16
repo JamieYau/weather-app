@@ -1,4 +1,14 @@
 import "./style.css";
-import fetchData from "./modules/api";
+import weatherAPI from "./modules/weatherAPI";
 
-console.log(await fetchData("New York"));
+async function fetchWeatherData(city) {
+  const data = await weatherAPI.fetchData(city);
+  const currentWeather = weatherAPI.getCurrentData(data);
+  const forecastWeather = weatherAPI.getForecastData(data);
+
+  console.log(data);
+  console.log(currentWeather);
+  console.log(forecastWeather);
+}
+
+fetchWeatherData("London");
