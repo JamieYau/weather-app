@@ -4,7 +4,7 @@
     "commonjs": true,
     "es2021": true
   },
-  "extends": ["airbnb-base", "prettier"],
+  "extends": ["airbnb-base", "plugin:jest/recommended", "prettier"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
@@ -12,5 +12,6 @@
   "rules": {
     "no-console": "off",
     "quotes": "off"
-  }
+  },
+  "plugins": ["jest", "dotenv-webpack"]
 }

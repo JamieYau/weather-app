@@ -1,0 +1,8 @@
+.project_structure_ignore
+node_modules
+.vscode
+.eslintrc.js
+.gitignore
+.git
+package-lock.json
+README.md
