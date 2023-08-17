@@ -22,6 +22,10 @@ const render = (() => {
 
     const conditionIcon = info.querySelector(".condition-icon");
     conditionIcon.src = currentWeather.conditionIcon;
+    const conditionText = info.querySelector(".condition-text");
+    conditionText.textContent = currentWeather.conditionText;
+    const temperature = info.querySelector(".temperature");
+    temperature.textContent = `${currentWeather.temperatureC} °C`;
   }
 
   function renderForecast(forecastData) {
