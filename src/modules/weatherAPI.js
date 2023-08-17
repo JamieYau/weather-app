@@ -49,10 +49,27 @@ const weatherAPI = (() => {
     });
   }
 
+  function getLocationData(data) {
+    const locationJSON = data.location;
+
+
+
+    return {
+      name: locationJSON.name,
+      country: locationJSON.country,
+      region: locationJSON.region,
+      localTime: locationJSON.localtime,
+      lat: locationJSON.lat,
+      lon: locationJSON.lon,
+      timezone: locationJSON.tz_id,
+    };
+  }
+
   return {
     fetchData,
     getCurrentData,
     getForecastData,
+    getLocationData,
   };
 })();
 
