@@ -9,9 +9,9 @@ const render = (() => {
     // Update DOM with current weather data
     const main = document.querySelector("main");
     const info = main.querySelector(".weather-info");
+
     const city = info.querySelector(".city");
     city.textContent = location.name;
-
     const { localDateFormatted, localTimeFormatted } = formatLocalTime(
       location.localTime
     );
@@ -19,6 +19,9 @@ const render = (() => {
     localDateElement.textContent = localDateFormatted;
     const localTimeElement = info.querySelector(".local-time");
     localTimeElement.textContent = localTimeFormatted;
+
+    const conditionIcon = info.querySelector(".condition-icon");
+    conditionIcon.src = currentWeather.conditionIcon;
   }
 
   function renderForecast(forecastData) {

@@ -14,7 +14,7 @@ const weatherAPI = (() => {
     const currentJSON = data.current;
     return {
       conditionText: currentJSON.condition.text,
-      conditionIcon: currentJSON.condition.icon,
+      conditionIcon: `https:${currentJSON.condition.icon.slice(2)}`,
       temperatureC: currentJSON.temp_c,
       temperatureF: currentJSON.temp_f,
       feelsLikeC: currentJSON.feelslike_c,
@@ -35,7 +35,7 @@ const weatherAPI = (() => {
       return {
         date: day.date,
         conditionText: day.day.condition.text,
-        conditionIcon: day.day.condition.icon,
+        conditionIcon: `https:${day.day.condition.icon.slice(2)}`,
         temperatureC: day.day.avgtemp_c,
         temperatureF: day.day.avgtemp_f,
         humidity: day.day.avghumidity,
