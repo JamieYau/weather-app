@@ -18,7 +18,7 @@
       </div>
     </header>
     <main id="container">
-      <section class="weather-info">
+      <section id="weather-info">
         <div class="city"></div>
         <div class="local-date"></div>
         <div class="local-time"></div>
@@ -26,8 +26,14 @@
         <div class="condition-text"></div>
         <div class="temperature"></div>
       </section>
-      <section class="weather-extra-info">
-        <div class="feels-like"></div>
+      <section id="weather-extra-info">
+        <div id="feels-like" class="extra-item">
+          <box-icon type="solid" name="thermometer"></box-icon>
+          <div class="extra-item-info">
+            <div id="feels-like-text">Feels Like</div>
+            <div id="feels-like-value"></div>
+          </div>
+        </div>
         <div class="humidity"></div>
         <div class="wind-speed"></div>
         <div class="wind-direction"></div>

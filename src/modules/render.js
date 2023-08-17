@@ -25,7 +25,7 @@ const render = (() => {
   function renderCurrentWeather(currentWeather, location) {
     // Update DOM with current weather data
     const main = document.querySelector("main");
-    const info = main.querySelector(".weather-info");
+    const info = main.querySelector("#weather-info");
 
     const city = info.querySelector(".city");
     city.textContent = location.name;
@@ -43,6 +43,10 @@ const render = (() => {
     conditionText.textContent = currentWeather.conditionText;
     const temperature = info.querySelector(".temperature");
     temperature.textContent = `${currentWeather.temperatureC} °C`;
+
+    const extraInfo = main.querySelector("#weather-extra-info");
+    const feelsLikeValue = extraInfo.querySelector("#feels-like-value");
+    feelsLikeValue.textContent = `${currentWeather.feelsLikeC} °C`;
   }
 
   function renderForecast(forecastData) {
