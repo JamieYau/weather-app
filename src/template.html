@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= htmlWebpackPlugin.options.title %></title>
-</head>
-<body>
-    <h1>Weather App</h1>
-</body>
+  </head>
+  <body>
+    <header>
+      <div id="search-container">
+        <input
+          type="search"
+          name="location"
+          id="location"
+          placeholder="Search Location..."
+        />
+        <span id="search">
+          <i class="fa-solid fa-search"></i>
+        </span>
+      </div>
+    </header>
+    <main id="container">
+      <section class="weather-info">
+        <div class="city-name"></div>
+        <div class="date"></div>
+        <div class="condition-icon"></div>
+        <div class="condition-text"></div>
+        <div class="weather-temp"></div>
+      </section>
+      <section class="weather-extra-info">
+        <div class="feels-like"></div>
+        <div class="humidity"></div>
+        <div class="wind-speed"></div>
+        <div class="wind-direction"></div>
+        <div class="uv-index"></div>
+      </section>
+    </main>
+    <div class="forecast">
+      <form>
+        <input type="radio" name="forecast" id="daily" checked>
+        <label for="daily">Daily</label>
+        <input type="radio" name="forecast" id="hourly">
+        <label for="hourly">Hourly</label>
+      </form>
+      <div class="forecast-item"></div>
+      <div class="forecast-item"></div>
+      <div class="forecast-item"></div>
+    </div>
+  </body>
 </html>
