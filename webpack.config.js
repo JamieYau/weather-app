@@ -27,7 +27,7 @@ module.exports = {
     rules: [
       // Add this rule for loading CSS files
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: ["style-loader", "css-loader", "postcss-loader"],
       }, // Add this rule for loading imagess
       {

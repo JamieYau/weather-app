@@ -1,8 +1,25 @@
-import weatherAPI from "./weatherAPI.js";
-
 const render = (() => {
-  function initializePage(data) {
-    // Set up initial page structure
+  function initializePage(data) {}
+
+  function formatLocalTime(localTime) {
+    const dateTime = new Date(localTime);
+    const optionsDate = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const optionsTime = {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      timeZoneName: "short",
+    };
+
+    const localDateFormatted = dateTime.toLocaleString(undefined, optionsDate);
+    const localTimeFormatted = dateTime.toLocaleString(undefined, optionsTime);
+
+    return { localDateFormatted, localTimeFormatted };
   }
 
   function renderCurrentWeather(currentWeather, location) {
@@ -30,27 +47,6 @@ const render = (() => {
 
   function renderForecast(forecastData) {
     // Update DOM with forecast data
-  }
-
-  function formatLocalTime(localTime) {
-    const dateTime = new Date(localTime);
-    const optionsDate = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    const optionsTime = {
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      timeZoneName: "short",
-    };
-
-    const localDateFormatted = dateTime.toLocaleString(undefined, optionsDate);
-    const localTimeFormatted = dateTime.toLocaleString(undefined, optionsTime);
-
-    return { localDateFormatted, localTimeFormatted };
   }
 
   return {

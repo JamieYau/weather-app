@@ -1,5 +1,5 @@
 import "./style.css";
-import "boxicons/css/boxicons.min.css";
+
 import weatherAPI from "./modules/weatherAPI";
 import render from "./modules/render";
 

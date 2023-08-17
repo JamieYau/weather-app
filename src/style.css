@@ -6,10 +6,39 @@
   box-sizing: border-box;
 }
 
-h1 {
+body {
   font-family: "Roboto", sans-serif;
+}
+
+h1 {
   font-weight: 700;
   font-size: 2rem;
   text-align: center;
   margin-bottom: 2rem;
+}
+
+#forecast-form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  border: solid 2px #ccc;
+}
+
+#forecast-form label {
+  display: flex;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border: solid 2px #ccc;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+#forecast-form input[type="radio"] {
+  display: none;
+}
+
+#forecast-form input[type="radio"]:checked + label {
+  border: solid 2px #000;
 }

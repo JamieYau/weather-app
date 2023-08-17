@@ -1,6 +1,8 @@
 const weatherAPI = (() => {
+  /* eslint-disable prefer-destructuring */
   const API_ROOT = process.env.API_ROOT;
   const API_KEY = process.env.API_KEY;
+  /* eslint-enable prefer-destructuring */
 
   async function fetchData(city) {
     const response = await fetch(
@@ -31,28 +33,24 @@ const weatherAPI = (() => {
 
   function getForecastData(data) {
     const forecastJSON = data.forecast.forecastday;
-    return forecastJSON.map((day) => {
-      return {
-        date: day.date,
-        conditionText: day.day.condition.text,
-        conditionIcon: `https:${day.day.condition.icon.slice(2)}`,
-        temperatureC: day.day.avgtemp_c,
-        temperatureF: day.day.avgtemp_f,
-        humidity: day.day.avghumidity,
-        windSpeedKph: day.day.maxwind_kph,
-        windSpeedMph: day.day.maxwind_mph,
-        windDirection: day.day.wind_dir,
-        uvIndex: day.day.uv,
-        visibilityKm: day.day.avgvis_km,
-        visibilityMiles: day.day.avgvis_miles,
-      };
-    });
+    return forecastJSON.map((day) => ({
+      date: day.date,
+      conditionText: day.day.condition.text,
+      conditionIcon: `https:${day.day.condition.icon.slice(2)}`,
+      temperatureC: day.day.avgtemp_c,
+      temperatureF: day.day.avgtemp_f,
+      humidity: day.day.avghumidity,
+      windSpeedKph: day.day.maxwind_kph,
+      windSpeedMph: day.day.maxwind_mph,
+      windDirection: day.day.wind_dir,
+      uvIndex: day.day.uv,
+      visibilityKm: day.day.avgvis_km,
+      visibilityMiles: day.day.avgvis_miles,
+    }));
   }
 
   function getLocationData(data) {
     const locationJSON = data.location;
-
-
 
     return {
       name: locationJSON.name,

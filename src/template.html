@@ -14,7 +14,7 @@
           id="location"
           placeholder="Search Location..."
         />
-        <i id="location-search" class="bx bx-search"></i>
+        <box-icon name="search" id="search-icon"></box-icon>
       </div>
     </header>
     <main id="container">
@@ -35,7 +35,7 @@
       </section>
     </main>
     <div class="forecast">
-      <form>
+      <form id="forecast-form">
         <input type="radio" name="forecast" id="daily" checked />
         <label for="daily">Daily</label>
         <input type="radio" name="forecast" id="hourly" />
@@ -45,5 +45,6 @@
       <div class="forecast-item"></div>
       <div class="forecast-item"></div>
     </div>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   </body>
 </html>
