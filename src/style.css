@@ -10,11 +10,38 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  background-color: #dbdbdb;
+}
+
+#search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+#search-container input {
+  padding: 5px 10px;
+  border: solid 2px #ccc;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+#search-container box-icon {
+  cursor: pointer;
+}
+
 main {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 2rem;
+  background-color: #6d95bd;
 }
 
 .extra-item {

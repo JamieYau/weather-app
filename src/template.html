@@ -14,7 +14,7 @@
           id="location"
           placeholder="Search Location..."
         />
-        <box-icon name="search" id="search-icon"></box-icon>
+        <box-icon name="search-alt-2" id="search-icon" color="grey"></box-icon>
       </div>
     </header>
     <main id="container">
@@ -34,10 +34,34 @@
             <div id="feels-like-value"></div>
           </div>
         </div>
-        <div class="humidity"></div>
-        <div class="wind-speed"></div>
-        <div class="wind-direction"></div>
-        <div class="uv-index"></div>
+        <div id="humidity" class="extra-item">
+          <box-icon name="water"></box-icon>
+          <div class="extra-item-info">
+            <div id="humidity-text">Humidity</div>
+            <div id="humidity-value"></div>
+          </div>
+        </div>
+        <div id="wind-speed" class="extra-item">
+          <box-icon name="wind"></box-icon>
+          <div class="extra-item-info">
+            <div id="wind-speed-text">Wind Speed</div>
+            <div id="wind-speed-value"></div>
+          </div>
+        </div>
+        <div id="wind-direction" class="extra-item">
+          <box-icon name="compass"></box-icon>
+          <div class="extra-item-info">
+            <div id="wind-direction-text">Wind Direction</div>
+            <div id="wind-direction-value"></div>
+          </div>
+        </div>
+        <div id="uv-index" class="extra-item">
+          <box-icon name="sun"></box-icon>
+          <div class="extra-item-info">
+            <div id="uv-index-text">UV Index</div>
+            <div id="uv-index-value"></div>
+          </div>
+        </div>
       </section>
     </main>
     <div class="forecast">
@@ -47,9 +71,11 @@
         <input type="radio" name="forecast" id="hourly" />
         <label for="hourly">Hourly</label>
       </form>
-      <div class="forecast-item"></div>
-      <div class="forecast-item"></div>
-      <div class="forecast-item"></div>
+      <section id="forecast-items">
+        <div class="forecast-item"></div>
+        <div class="forecast-item"></div>
+        <div class="forecast-item"></div>
+      </section>
     </div>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   </body>
