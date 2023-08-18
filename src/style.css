@@ -49,6 +49,8 @@ main {
   gap: 1rem;
 }
 
+/* Forecast */
+
 #forecast-form {
   display: flex;
   justify-content: flex-start;
@@ -73,4 +75,23 @@ main {
 
 #forecast-form input[type="radio"]:checked + label {
   border: solid 2px #000;
+}
+
+#forecast-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #dbdbdb;
+}
+
+.forecast-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 5px;
 }

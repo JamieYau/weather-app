@@ -15,6 +15,7 @@ async function fetchWeatherData(city) {
   console.log(location);
 
   render.renderCurrentWeather(currentWeather, location);
+  render.renderForecast(forecastWeather);
 }
 
 fetchWeatherData("London");

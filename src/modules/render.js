@@ -51,6 +51,12 @@ const render = (() => {
 
   function renderForecast(forecastData) {
     // Update DOM with forecast data
+    const icons = document.querySelectorAll(".forecast-item .icon");
+    console.log(icons);
+    icons.forEach((icon, index) => {
+      icon.src = forecastData[index].conditionIcon;
+      console.log(icon);
+    });
   }
 
   return {
