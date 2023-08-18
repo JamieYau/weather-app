@@ -45,6 +45,10 @@ main {
   color: #ededed;
 }
 
+#weather-info > .city {
+  font-size: 3rem;
+}
+
 #weather-extra-info {
   display: flex;
   flex-direction: column;
