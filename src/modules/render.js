@@ -188,8 +188,69 @@ const render = (() => {
       document.body.appendChild(main);
     }
 
+    function createForecastSection() {
+      const forecast = document.createElement("section");
+      forecast.className = "forecast";
+
+      const forecastForm = document.createElement("form");
+      forecastForm.id = "forecast-form";
+
+      const dailyOption = document.createElement("input");
+      dailyOption.type = "radio";
+      dailyOption.name = "forecast";
+      dailyOption.id = "daily";
+      const dailyLabel = document.createElement("label");
+      dailyLabel.setAttribute("for", "daily");
+      dailyLabel.textContent = "Daily";
+
+      const hourlyOption = document.createElement("input");
+      hourlyOption.type = "radio";
+      hourlyOption.name = "forecast";
+      hourlyOption.id = "hourly";
+      const hourlyLabel = document.createElement("label");
+      hourlyLabel.setAttribute("for", "hourly");
+      hourlyLabel.textContent = "Hourly";
+
+      forecastForm.appendChild(dailyOption);
+      forecastForm.appendChild(dailyLabel);
+      forecastForm.appendChild(hourlyOption);
+      forecastForm.appendChild(hourlyLabel);
+
+      const forecastItems = document.createElement("section");
+      forecastItems.id = "forecast-items";
+
+      for (let i = 0; i < 3; i++) {
+        const forecastItem = document.createElement("div");
+        forecastItem.classList.add("forecast-item", "daily");
+
+
+        const day = document.createElement("div");
+        day.classList.add("day");
+        forecastItem.appendChild(day);
+
+        const tempHigh = document.createElement("div");
+        tempHigh.classList.add("temp-high");
+        forecastItem.appendChild(tempHigh);
+
+        const tempLow = document.createElement("div");
+        tempLow.classList.add("temp-low");
+        forecastItem.appendChild(tempLow);
+
+        const icon = document.createElement("img");
+        icon.classList.add("icon");
+        forecastItem.appendChild(icon);
+
+        forecastItems.appendChild(forecastItem);
+      }
+
+      forecast.appendChild(forecastForm);
+      forecast.appendChild(forecastItems);
+      document.body.appendChild(forecast);
+    }
+
     createHeader();
     createMain();
+    createForecastSection();
   }
 
   function renderCurrentWeather(currentWeather, location) {
