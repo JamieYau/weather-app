@@ -41,7 +41,15 @@ main {
   justify-content: space-between;
   align-items: flex-start;
   padding: 2rem;
-  background-color: #6d95bd;
+  background-color: #3a5671;
+  color: #ededed;
+}
+
+#weather-extra-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .extra-item {

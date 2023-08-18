@@ -47,15 +47,25 @@ const render = (() => {
     const extraInfo = main.querySelector("#weather-extra-info");
     const feelsLikeValue = extraInfo.querySelector("#feels-like-value");
     feelsLikeValue.textContent = `${currentWeather.feelsLikeC} °C`;
+
+    const humidity = extraInfo.querySelector("#humidity-value");
+    humidity.textContent = `${currentWeather.humidity}%`;
+
+    const windSpeed = extraInfo.querySelector("#wind-speed-value");
+    windSpeed.textContent = `${currentWeather.windSpeedMph} mph`;
+
+    const windDirection = extraInfo.querySelector("#wind-direction-value");
+    windDirection.textContent = currentWeather.windDirection;
+
+    const uvIndex = extraInfo.querySelector("#uv-index-value");
+    uvIndex.textContent = currentWeather.uvIndex;
   }
 
   function renderForecast(forecastData) {
     // Update DOM with forecast data
     const icons = document.querySelectorAll(".forecast-item .icon");
-    console.log(icons);
     icons.forEach((icon, index) => {
       icon.src = forecastData[index].conditionIcon;
-      console.log(icon);
     });
   }
 
