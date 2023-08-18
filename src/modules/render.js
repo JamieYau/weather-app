@@ -1,6 +1,32 @@
 import formatLocalTime from "./utility";
 
 const render = (() => {
+  function renderDailyForecast(forecastItems) {
+    forecastItems.innerHTML = "";
+    for (let i = 0; i < 3; i += 1) {
+      const forecastItem = document.createElement("div");
+      forecastItem.classList.add("forecast-item", "daily");
+
+      const day = document.createElement("div");
+      day.classList.add("day");
+      forecastItem.appendChild(day);
+
+      const tempHigh = document.createElement("div");
+      tempHigh.classList.add("temp-high");
+      forecastItem.appendChild(tempHigh);
+
+      const tempLow = document.createElement("div");
+      tempLow.classList.add("temp-low");
+      forecastItem.appendChild(tempLow);
+
+      const icon = document.createElement("img");
+      icon.classList.add("icon");
+      forecastItem.appendChild(icon);
+
+      forecastItems.appendChild(forecastItem);
+    }
+  }
+
   function initializePage() {
     function createHeader() {
       const header = document.createElement("header");
@@ -23,53 +49,7 @@ const render = (() => {
       header.appendChild(searchContainer);
       document.body.appendChild(header);
     }
-    /* <main id="container">
-      <section id="weather-info">
-        <div class="city"></div>
-        <div class="local-date"></div>
-        <div class="local-time"></div>
-        <img class="condition-icon" />
-        <div class="condition-text"></div>
-        <div class="temperature"></div>
-      </section>
-      <section id="weather-extra-info">
-        <div id="feels-like" class="extra-item">
-          <box-icon type="solid" name="thermometer" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="feels-like-text">Feels Like</div>
-            <div id="feels-like-value"></div>
-          </div>
-        </div>
-        <div id="humidity" class="extra-item">
-          <box-icon name="water" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="humidity-text">Humidity</div>
-            <div id="humidity-value"></div>
-          </div>
-        </div>
-        <div id="wind-speed" class="extra-item">
-          <box-icon name="wind" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="wind-speed-text">Wind Speed</div>
-            <div id="wind-speed-value"></div>
-          </div>
-        </div>
-        <div id="wind-direction" class="extra-item">
-          <box-icon name="compass" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="wind-direction-text">Wind Direction</div>
-            <div id="wind-direction-value"></div>
-          </div>
-        </div>
-        <div id="uv-index" class="extra-item">
-          <box-icon name="sun" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="uv-index-text">UV Index</div>
-            <div id="uv-index-value"></div>
-          </div>
-        </div>
-      </section>
-    </main> */
+
     function createMain() {
       const main = document.createElement("main");
       main.id = "container";
@@ -199,6 +179,7 @@ const render = (() => {
       dailyOption.type = "radio";
       dailyOption.name = "forecast";
       dailyOption.id = "daily";
+      dailyOption.checked = true;
       const dailyLabel = document.createElement("label");
       dailyLabel.setAttribute("for", "daily");
       dailyLabel.textContent = "Daily";
@@ -218,30 +199,7 @@ const render = (() => {
 
       const forecastItems = document.createElement("section");
       forecastItems.id = "forecast-items";
-
-      for (let i = 0; i < 3; i++) {
-        const forecastItem = document.createElement("div");
-        forecastItem.classList.add("forecast-item", "daily");
-
-
-        const day = document.createElement("div");
-        day.classList.add("day");
-        forecastItem.appendChild(day);
-
-        const tempHigh = document.createElement("div");
-        tempHigh.classList.add("temp-high");
-        forecastItem.appendChild(tempHigh);
-
-        const tempLow = document.createElement("div");
-        tempLow.classList.add("temp-low");
-        forecastItem.appendChild(tempLow);
-
-        const icon = document.createElement("img");
-        icon.classList.add("icon");
-        forecastItem.appendChild(icon);
-
-        forecastItems.appendChild(forecastItem);
-      }
+      renderDailyForecast(forecastItems);
 
       forecast.appendChild(forecastForm);
       forecast.appendChild(forecastItems);
@@ -255,8 +213,7 @@ const render = (() => {
 
   function renderCurrentWeather(currentWeather, location) {
     // Update DOM with current weather data
-    const main = document.querySelector("main");
-    const info = main.querySelector("#weather-info");
+    const info = document.getElementById("weather-info");
 
     const city = info.querySelector(".city");
     city.textContent = location.name;
@@ -274,20 +231,20 @@ const render = (() => {
     const temperature = info.querySelector(".temperature");
     temperature.textContent = `${currentWeather.temperatureC} °C`;
 
-    const extraInfo = main.querySelector("#weather-extra-info");
-    const feelsLikeValue = extraInfo.querySelector("#feels-like-value");
+    const extraInfo = document.getElementById("weather-extra-info");
+    const feelsLikeValue = document.getElementById("feels-like-value");
     feelsLikeValue.textContent = `${currentWeather.feelsLikeC} °C`;
-    const humidity = extraInfo.querySelector("#humidity-value");
+    const humidity = document.getElementById("humidity-value");
     humidity.textContent = `${currentWeather.humidity}%`;
-    const windSpeed = extraInfo.querySelector("#wind-speed-value");
+    const windSpeed = document.getElementById("wind-speed-value");
     windSpeed.textContent = `${currentWeather.windSpeedMph} mph`;
-    const windDirection = extraInfo.querySelector("#wind-direction-value");
+    const windDirection = document.getElementById("wind-direction-value");
     windDirection.textContent = currentWeather.windDirection;
-    const uvIndex = extraInfo.querySelector("#uv-index-value");
+    const uvIndex = document.getElementById("uv-index-value");
     uvIndex.textContent = currentWeather.uvIndex;
   }
 
-  function renderForecast(forecastData) {
+  function updateDailyForecast(forecastData) {
     // Update DOM with forecast data
     const items = document.querySelectorAll(".forecast-item");
     items.forEach((item, index) => {
@@ -307,7 +264,8 @@ const render = (() => {
   return {
     initializePage,
     renderCurrentWeather,
-    renderForecast,
+    renderDailyForecast,
+    updateDailyForecast,
   };
 })();
 

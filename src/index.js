@@ -2,6 +2,7 @@ import "./style.css";
 
 import weatherAPI from "./modules/weatherAPI";
 import render from "./modules/render";
+import eventHandlers from "./modules/eventHandlers";
 
 async function fetchWeatherData(city) {
 
@@ -16,7 +17,9 @@ async function fetchWeatherData(city) {
   console.log(location);
 
   render.renderCurrentWeather(currentWeather, location);
-  render.renderForecast(forecastWeather);
+  render.updateDailyForecast(forecastWeather);
+
+  eventHandlers.forecastListeners(forecastWeather);
 }
 
 render.initializePage();

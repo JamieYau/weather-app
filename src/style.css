@@ -83,6 +83,7 @@ main {
   padding: 5px 10px;
   border: solid 2px #ccc;
   border-radius: 5px;
+  cursor: pointer;
   transition: all 0.3s;
 }
 
