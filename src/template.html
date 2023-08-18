@@ -6,53 +6,6 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
-    <main id="container">
-      <section id="weather-info">
-        <div class="city"></div>
-        <div class="local-date"></div>
-        <div class="local-time"></div>
-        <img class="condition-icon" />
-        <div class="condition-text"></div>
-        <div class="temperature"></div>
-      </section>
-      <section id="weather-extra-info">
-        <div id="feels-like" class="extra-item">
-          <box-icon type="solid" name="thermometer" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="feels-like-text">Feels Like</div>
-            <div id="feels-like-value"></div>
-          </div>
-        </div>
-        <div id="humidity" class="extra-item">
-          <box-icon name="water" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="humidity-text">Humidity</div>
-            <div id="humidity-value"></div>
-          </div>
-        </div>
-        <div id="wind-speed" class="extra-item">
-          <box-icon name="wind" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="wind-speed-text">Wind Speed</div>
-            <div id="wind-speed-value"></div>
-          </div>
-        </div>
-        <div id="wind-direction" class="extra-item">
-          <box-icon name="compass" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="wind-direction-text">Wind Direction</div>
-            <div id="wind-direction-value"></div>
-          </div>
-        </div>
-        <div id="uv-index" class="extra-item">
-          <box-icon name="sun" color="white"></box-icon>
-          <div class="extra-item-info">
-            <div id="uv-index-text">UV Index</div>
-            <div id="uv-index-value"></div>
-          </div>
-        </div>
-      </section>
-    </main>
     <div class="forecast">
       <form id="forecast-form">
         <input type="radio" name="forecast" id="daily" checked />

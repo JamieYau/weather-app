@@ -4,7 +4,6 @@ import weatherAPI from "./modules/weatherAPI";
 import render from "./modules/render";
 
 async function fetchWeatherData(city) {
-  render.initializePage();
 
   const data = await weatherAPI.fetchData(city);
   const currentWeather = weatherAPI.getCurrentData(data);
@@ -20,4 +19,6 @@ async function fetchWeatherData(city) {
   render.renderForecast(forecastWeather);
 }
 
-fetchWeatherData("London");
+render.initializePage();
+// wait till dom/initializepage is called, then call fetchWeatherData
+document.addEventListener("DOMContentLoaded", fetchWeatherData("London"));
