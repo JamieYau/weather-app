@@ -45,6 +45,11 @@ main {
   color: #ededed;
 }
 
+#weather-info {
+  position: relative;
+  top:-10px;
+}
+
 #weather-info > .city {
   font-size: 3rem;
 }

@@ -63,8 +63,15 @@ const render = (() => {
 
   function renderForecast(forecastData) {
     // Update DOM with forecast data
-    const icons = document.querySelectorAll(".forecast-item .icon");
-    icons.forEach((icon, index) => {
+    const items = document.querySelectorAll(".forecast-item");
+    items.forEach((item, index) => {
+      const day = item.querySelector(".day");
+      day.textContent = forecastData[index].date;
+      const tempHigh = item.querySelector(".temp-high");
+      tempHigh.textContent = `${forecastData[index].tempHighC} °C`;
+      const tempLow = item.querySelector(".temp-low");
+      tempLow.textContent = `${forecastData[index].tempLowC} °C`;
+      const icon = item.querySelector(".icon");
       icon.src = forecastData[index].conditionIcon;
     });
   }
