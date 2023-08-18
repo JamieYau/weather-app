@@ -1,7 +1,31 @@
 import formatLocalTime from "./utility";
 
 const render = (() => {
-  function initializePage(data) {}
+  function initializePage() {
+    function createHeader() {
+      const header = document.createElement("header");
+      const searchContainer = document.createElement("div");
+      searchContainer.id = "search-container";
+
+      const searchInput = document.createElement("input");
+      searchInput.type = "search";
+      searchInput.name = "location";
+      searchInput.id = "location";
+      searchInput.placeholder = "Search Location...";
+
+      const searchIcon = document.createElement("box-icon");
+      searchIcon.setAttribute("name", "search");
+      searchIcon.id = "search-icon";
+      searchIcon.setAttribute("color", "grey")
+
+      searchContainer.appendChild(searchInput);
+      searchContainer.appendChild(searchIcon);
+      header.appendChild(searchContainer);
+      document.body.appendChild(header);
+    }
+
+    createHeader();
+  }
 
   function renderCurrentWeather(currentWeather, location) {
     // Update DOM with current weather data

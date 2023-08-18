@@ -4,6 +4,8 @@ import weatherAPI from "./modules/weatherAPI";
 import render from "./modules/render";
 
 async function fetchWeatherData(city) {
+  render.initializePage();
+
   const data = await weatherAPI.fetchData(city);
   const currentWeather = weatherAPI.getCurrentData(data);
   const forecastWeather = weatherAPI.getForecastData(data);
