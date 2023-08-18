@@ -3,6 +3,21 @@ const render = (() => {
 
   function formatLocalTime(localTime) {
     const dateTime = new Date(localTime);
+
+    const nthNumber = (number) => {
+      if (number > 3 && number < 21) return "th";
+      switch (number % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    };
+
     const optionsDate = {
       weekday: "long",
       year: "numeric",
@@ -12,14 +27,20 @@ const render = (() => {
     const optionsTime = {
       hour: "numeric",
       minute: "numeric",
-      second: "numeric",
       timeZoneName: "short",
+    };
+    const optionsDay = {
+      weekday: "long",
+      day: "numeric",
     };
 
     const localDateFormatted = dateTime.toLocaleString(undefined, optionsDate);
     const localTimeFormatted = dateTime.toLocaleString(undefined, optionsTime);
+    const localDayFormatted = `${dateTime.toLocaleString(undefined, optionsDay)}${nthNumber(
+      dateTime.getDay()
+    )}`;
 
-    return { localDateFormatted, localTimeFormatted };
+    return { localDateFormatted, localTimeFormatted, localDayFormatted };
   }
 
   function renderCurrentWeather(currentWeather, location) {
@@ -36,7 +57,6 @@ const render = (() => {
     localDateElement.textContent = localDateFormatted;
     const localTimeElement = info.querySelector(".local-time");
     localTimeElement.textContent = localTimeFormatted;
-
     const conditionIcon = info.querySelector(".condition-icon");
     conditionIcon.src = currentWeather.conditionIcon;
     const conditionText = info.querySelector(".condition-text");
@@ -47,16 +67,12 @@ const render = (() => {
     const extraInfo = main.querySelector("#weather-extra-info");
     const feelsLikeValue = extraInfo.querySelector("#feels-like-value");
     feelsLikeValue.textContent = `${currentWeather.feelsLikeC} °C`;
-
     const humidity = extraInfo.querySelector("#humidity-value");
     humidity.textContent = `${currentWeather.humidity}%`;
-
     const windSpeed = extraInfo.querySelector("#wind-speed-value");
     windSpeed.textContent = `${currentWeather.windSpeedMph} mph`;
-
     const windDirection = extraInfo.querySelector("#wind-direction-value");
     windDirection.textContent = currentWeather.windDirection;
-
     const uvIndex = extraInfo.querySelector("#uv-index-value");
     uvIndex.textContent = currentWeather.uvIndex;
   }
@@ -66,7 +82,9 @@ const render = (() => {
     const items = document.querySelectorAll(".forecast-item");
     items.forEach((item, index) => {
       const day = item.querySelector(".day");
-      day.textContent = forecastData[index].date;
+      day.textContent = formatLocalTime(
+        forecastData[index].date
+      ).localDayFormatted;
       const tempHigh = item.querySelector(".temp-high");
       tempHigh.textContent = `${forecastData[index].tempHighC} °C`;
       const tempLow = item.querySelector(".temp-low");
