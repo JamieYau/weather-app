@@ -147,6 +147,7 @@ main {
   }
 
   #carousel {
+    min-width: 100%;
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: calc((100% - 7 * 16px) / 8);
@@ -155,5 +156,22 @@ main {
     scroll-snap-type: x mandatory;
     border-radius: 8px;
     scroll-behavior: smooth;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding-bottom: 20px; /* Space for scrollbar */
+
+    &::-webkit-scrollbar {
+      border-radius: 100px;
+      height: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #787878;
+      border-radius: 100px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 100px;
+      background-color: #f1f1f1;
+    }
   }
 }

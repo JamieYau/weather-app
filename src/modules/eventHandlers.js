@@ -8,7 +8,6 @@ const eventHandlers = (() => {
       window.getComputedStyle(carousel).getPropertyValue("gap"),
       10
     );
-    console.log(gapValue);
 
     arrowBtns.forEach((arrowBtn) => {
       arrowBtn.addEventListener("click", () => {
