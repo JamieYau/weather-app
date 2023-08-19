@@ -47,7 +47,7 @@ main {
 
 #weather-info {
   position: relative;
-  top:-10px;
+  top: -10px;
 }
 
 #weather-info > .city {
@@ -75,41 +75,79 @@ main {
   padding: 1rem;
   gap: 1rem;
   border: solid 2px #ccc;
+
+  label {
+    display: flex;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border: solid 2px #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    &:checked + label {
+      border-color: #000;
+    }
+  }
+
+  #carousel-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .navigation-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      border: none;
+    }
+
+    #dots-container {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      list-style: none;
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #000000;
+      }
+    }
+  }
 }
 
-#forecast-form label {
+#forecast-container {
   display: flex;
-  font-size: 0.8rem;
-  padding: 5px 10px;
-  border: solid 2px #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-#forecast-form input[type="radio"] {
-  display: none;
-}
-
-#forecast-form input[type="radio"]:checked + label {
-  border: solid 2px #000;
-}
-
-#forecast-items {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   padding: 1rem;
   background-color: #dbdbdb;
-}
 
-.forecast-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #fff;
-  border-radius: 5px;
+  .forecast-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+
+  #carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 7 * 16px) / 8);
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    border-radius: 8px;
+    scroll-behavior: smooth;
+  }
 }

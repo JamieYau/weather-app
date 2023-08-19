@@ -1,8 +1,7 @@
 import formatLocalTime from "./utility";
 
 const render = (() => {
-  function renderDailyForecast(forecastItems) {
-    forecastItems.innerHTML = "";
+  function renderDailyForecast(forecastContainer) {
     for (let i = 0; i < 3; i += 1) {
       const forecastItem = document.createElement("div");
       forecastItem.classList.add("forecast-item", "daily");
@@ -23,8 +22,25 @@ const render = (() => {
       icon.classList.add("icon");
       forecastItem.appendChild(icon);
 
-      forecastItems.appendChild(forecastItem);
+      forecastContainer.appendChild(forecastItem);
     }
+  }
+
+  function updateDailyForecast(dailyForecastData) {
+    // Update DOM with forecast data
+    const items = document.querySelectorAll(".forecast-item");
+    items.forEach((item, index) => {
+      const day = item.querySelector(".day");
+      day.textContent = formatLocalTime(
+        dailyForecastData[index].date
+      ).localDayFormatted;
+      const tempHigh = item.querySelector(".temp-high");
+      tempHigh.textContent = `${dailyForecastData[index].tempHighC} °C`;
+      const tempLow = item.querySelector(".temp-low");
+      tempLow.textContent = `${dailyForecastData[index].tempLowC} °C`;
+      const icon = item.querySelector(".icon");
+      icon.src = dailyForecastData[index].conditionIcon;
+    });
   }
 
   function initializePage() {
@@ -197,12 +213,12 @@ const render = (() => {
       forecastForm.appendChild(hourlyOption);
       forecastForm.appendChild(hourlyLabel);
 
-      const forecastItems = document.createElement("section");
-      forecastItems.id = "forecast-items";
-      renderDailyForecast(forecastItems);
+      const forecastContainer = document.createElement("section");
+      forecastContainer.id = "forecast-container";
+      renderDailyForecast(forecastContainer);
 
       forecast.appendChild(forecastForm);
-      forecast.appendChild(forecastItems);
+      forecast.appendChild(forecastContainer);
       document.body.appendChild(forecast);
     }
 
@@ -231,7 +247,6 @@ const render = (() => {
     const temperature = info.querySelector(".temperature");
     temperature.textContent = `${currentWeather.temperatureC} °C`;
 
-    const extraInfo = document.getElementById("weather-extra-info");
     const feelsLikeValue = document.getElementById("feels-like-value");
     feelsLikeValue.textContent = `${currentWeather.feelsLikeC} °C`;
     const humidity = document.getElementById("humidity-value");
@@ -244,21 +259,72 @@ const render = (() => {
     uvIndex.textContent = currentWeather.uvIndex;
   }
 
-  function updateDailyForecast(forecastData) {
-    // Update DOM with forecast data
-    const items = document.querySelectorAll(".forecast-item");
-    items.forEach((item, index) => {
-      const day = item.querySelector(".day");
-      day.textContent = formatLocalTime(
-        forecastData[index].date
-      ).localDayFormatted;
-      const tempHigh = item.querySelector(".temp-high");
-      tempHigh.textContent = `${forecastData[index].tempHighC} °C`;
-      const tempLow = item.querySelector(".temp-low");
-      tempLow.textContent = `${forecastData[index].tempLowC} °C`;
-      const icon = item.querySelector(".icon");
-      icon.src = forecastData[index].conditionIcon;
-    });
+  function renderHourlyForecast(forecastContainer) {
+    function createCarouselNav() {
+      const carouselNavigation = document.createElement("nav");
+      carouselNavigation.id = "carousel-navigation";
+
+      const carouselPrev = document.createElement("button");
+      carouselPrev.id = "left";
+      carouselPrev.classList.add("navigation-button");
+      const prevIcon = document.createElement("box-icon");
+      prevIcon.setAttribute("name", "chevron-left");
+      prevIcon.setAttribute("color", "black");
+      carouselPrev.appendChild(prevIcon);
+      carouselNavigation.appendChild(carouselPrev);
+
+      const dotsContainer = document.createElement("ul");
+      dotsContainer.id = "dots-container";
+      for (let i = 0; i < 3; i += 1) {
+        const dot = document.createElement("li");
+        dot.classList.add("dot");
+        dotsContainer.appendChild(dot);
+      }
+      carouselNavigation.appendChild(dotsContainer);
+
+      const carouselNext = document.createElement("button");
+      carouselNext.id = "right";
+      carouselNext.classList.add("navigation-button");
+      const nextIcon = document.createElement("box-icon");
+      nextIcon.setAttribute("name", "chevron-right");
+      nextIcon.setAttribute("color", "black");
+      carouselNext.appendChild(nextIcon);
+      carouselNavigation.appendChild(carouselNext);
+
+      return carouselNavigation;
+    }
+
+    function createCarousel() {
+      const carousel = document.createElement("ul");
+      carousel.id = "carousel";
+
+      for (let i = 0; i < 24; i += 1) {
+        const carouselItem = document.createElement("li");
+        carouselItem.classList.add("forecast-item", "hourly");
+
+        const hour = document.createElement("div");
+        hour.classList.add("hour");
+        hour.textContent = i;
+        carouselItem.appendChild(hour);
+
+        const temp = document.createElement("div");
+        temp.classList.add("temp");
+        temp.textContent = i;
+        carouselItem.appendChild(temp);
+
+        const icon = document.createElement("img");
+        icon.classList.add("icon");
+        carouselItem.appendChild(icon);
+
+        carousel.appendChild(carouselItem);
+      }
+      return carousel;
+    }
+
+    document.getElementById("forecast-form").appendChild(createCarouselNav());
+
+    forecastContainer.appendChild(createCarousel());
+
   }
 
   return {
@@ -266,6 +332,7 @@ const render = (() => {
     renderCurrentWeather,
     renderDailyForecast,
     updateDailyForecast,
+    renderHourlyForecast,
   };
 })();
 

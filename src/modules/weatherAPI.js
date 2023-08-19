@@ -67,11 +67,22 @@ const weatherAPI = (() => {
     };
   }
 
+  function getNext24HoursForecast(data) {
+    const currentHour = new Date().getHours();
+    const forecastDays = data.forecast.forecastday;
+    const hoursData = forecastDays.flatMap((day) => day.hour);
+
+    const next24HoursData = hoursData.slice(currentHour, currentHour + 24);
+
+    return next24HoursData;
+  }
+
   return {
     fetchData,
     getCurrentData,
     getForecastData,
     getLocationData,
+    getNext24HoursForecast,
   };
 })();
 

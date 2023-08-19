@@ -10,11 +10,13 @@ async function fetchWeatherData(city) {
   const currentWeather = weatherAPI.getCurrentData(data);
   const forecastWeather = weatherAPI.getForecastData(data);
   const location = weatherAPI.getLocationData(data);
+  const forecastHoulry = weatherAPI.getNext24HoursForecast(data);
 
   console.log(data);
   console.log(currentWeather);
   console.log(forecastWeather);
   console.log(location);
+  console.log(forecastHoulry);
 
   render.renderCurrentWeather(currentWeather, location);
   render.updateDailyForecast(forecastWeather);

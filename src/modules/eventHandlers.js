@@ -6,12 +6,13 @@ const eventHandlers = (() => {
 
     forecastForm.addEventListener("change", (event) => {
       const selectedOption = event.target.id;
-      const forecastItems = document.getElementById("forecast-items");
+      const forecastContainer = document.getElementById("forecast-container");
+      forecastContainer.innerHTML = "";
       if (selectedOption === "daily") {
-        render.renderDailyForecast(forecastItems);
+        render.renderDailyForecast(forecastContainer);
         render.updateDailyForecast(forecastData);
       } else if (selectedOption === "hourly") {
-        console.log("Hourly forecast");
+        render.renderHourlyForecast(forecastContainer);
       }
     });
   }
