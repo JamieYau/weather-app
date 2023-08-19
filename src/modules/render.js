@@ -277,6 +277,7 @@ const render = (() => {
       const carouselPrev = document.createElement("button");
       carouselPrev.id = "left";
       carouselPrev.classList.add("navigation-button");
+      carouselPrev.type = "button";
       const prevIcon = document.createElement("box-icon");
       prevIcon.setAttribute("name", "chevron-left");
       prevIcon.setAttribute("color", "black");
@@ -295,6 +296,7 @@ const render = (() => {
       const carouselNext = document.createElement("button");
       carouselNext.id = "right";
       carouselNext.classList.add("navigation-button");
+      carouselNext.type = "button";
       const nextIcon = document.createElement("box-icon");
       nextIcon.setAttribute("name", "chevron-right");
       nextIcon.setAttribute("color", "black");

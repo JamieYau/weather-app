@@ -138,6 +138,12 @@ main {
     padding: 1rem;
     background-color: #fff;
     border-radius: 5px;
+    cursor: pointer;
+    list-style: none;
+
+    &.hourly {
+      scroll-snap-align: start;
+    }
   }
 
   #carousel {
