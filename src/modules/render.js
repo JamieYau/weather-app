@@ -2,6 +2,11 @@ import formatLocalTime from "./utility";
 
 const render = (() => {
   function renderDailyForecast(forecastContainer) {
+    if (document.getElementById("carousel-navigation")) {
+      document
+        .getElementById("forecast-form")
+        .removeChild(document.getElementById("carousel-navigation"));
+    }
     for (let i = 0; i < 3; i += 1) {
       const forecastItem = document.createElement("div");
       forecastItem.classList.add("forecast-item", "daily");
@@ -261,6 +266,11 @@ const render = (() => {
 
   function renderHourlyForecast(forecastContainer) {
     function createCarouselNav() {
+      if (document.getElementById("carousel-navigation")) {
+        document
+          .getElementById("forecast-form")
+          .removeChild(document.getElementById("carousel-navigation"));
+      }
       const carouselNavigation = document.createElement("nav");
       carouselNavigation.id = "carousel-navigation";
 
@@ -324,7 +334,6 @@ const render = (() => {
     document.getElementById("forecast-form").appendChild(createCarouselNav());
 
     forecastContainer.appendChild(createCarousel());
-
   }
 
   return {
