@@ -80,6 +80,35 @@ const eventHandlers = (() => {
         updateActiveDot();
       }
     });
+
+    let isDragging = false;
+    let startCursorX;
+    let initialScrollLeft;
+
+    const startDrag = (e) => {
+      isDragging = true;
+      carousel.classList.add("dragging");
+      // Record the initial cursor position and scroll position of the carousel
+      startCursorX = e.pageX;
+      initialScrollLeft = carousel.scrollLeft;
+    };
+
+    const drag = (e) => {
+      if (!isDragging) return;
+
+      const cursorMovementX = startCursorX - e.pageX;
+      const newScrollLeft = initialScrollLeft + cursorMovementX;
+      carousel.scrollLeft = newScrollLeft;
+    };
+
+    const endDrag = () => {
+      isDragging = false;
+      carousel.classList.remove("dragging");
+    };
+
+    carousel.addEventListener("mousedown", startDrag);
+    carousel.addEventListener("mousemove", drag);
+    document.addEventListener("mouseup", endDrag);
   };
 
   const forecastListeners = (forecastDaily, forecastHourly) => {

@@ -143,55 +143,65 @@ section.forecast {
   display: flex;
   gap: 1rem;
   background-color: #dbdbdb;
+}
 
-  .forecast-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    list-style: none;
+.forecast-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  list-style: none;
 
-    &.hourly {
-      scroll-snap-align: start;
-    }
-  }
-
-  #carousel {
-    min-width: 100%;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc((100% - 7 * 16px) / 8);
-    gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    border-radius: 8px;
-    scroll-behavior: smooth;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    padding-bottom: 20px; /* Space for scrollbar */
-
-    &::-webkit-scrollbar {
-      border-radius: 100px;
-      height: 12px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: #787878;
-      border-radius: 100px;
-
-      &:hover {
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
-      }
-    }
-
-    &::-webkit-scrollbar-track {
-      border-radius: 100px;
-      background-color: #f1f1f1;
-      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
-    }
+  &.hourly {
+    scroll-snap-align: start;
   }
 }
+
+#carousel {
+  min-width: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 7 * 16px) / 8);
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  border-radius: 8px;
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  padding-bottom: 20px;
+
+  &.dragging {
+    cursor: grabbing;
+
+    .forecast-item {
+      cursor: grabbing;
+      user-select: none;
+    }
+  }
+
+  &::-webkit-scrollbar {
+    border-radius: 100px;
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #787878;
+    border-radius: 100px;
+
+    &:hover {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 100px;
+    background-color: #f1f1f1;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
