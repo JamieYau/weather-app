@@ -67,7 +67,7 @@ const render = (() => {
       const searchIcon = document.createElement("box-icon");
       searchIcon.setAttribute("name", "search");
       searchIcon.id = "search-icon";
-      searchIcon.setAttribute("color", "grey");
+      searchIcon.setAttribute("color", "white");
       searchButton.appendChild(searchIcon);
 
       const errorMessage = document.createElement("div");
@@ -331,7 +331,7 @@ const render = (() => {
       carouselPrev.type = "button";
       const prevIcon = document.createElement("box-icon");
       prevIcon.setAttribute("name", "chevron-left");
-      prevIcon.setAttribute("color", "black");
+      prevIcon.setAttribute("color", "white");
       carouselPrev.appendChild(prevIcon);
       carouselNavigation.appendChild(carouselPrev);
 
@@ -354,7 +354,7 @@ const render = (() => {
       carouselNext.type = "button";
       const nextIcon = document.createElement("box-icon");
       nextIcon.setAttribute("name", "chevron-right");
-      nextIcon.setAttribute("color", "black");
+      nextIcon.setAttribute("color", "white");
       carouselNext.appendChild(nextIcon);
       carouselNavigation.appendChild(carouselNext);
 
