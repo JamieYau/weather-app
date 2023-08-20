@@ -51,24 +51,26 @@ const eventHandlers = (() => {
       });
     };
 
+    const handleArrowButtonClick = (arrowBtn) => {
+      const itemWidth =
+        carousel.querySelector(".forecast-item").offsetWidth + gapValue;
+      const scrollAmount =
+        arrowBtn.id === "left" ? -itemWidth * 8 : itemWidth * 8;
+      carousel.scrollLeft += scrollAmount;
+      currentPage = Math.max(
+        Math.min(
+          currentPage + (arrowBtn.id === "left" ? -1 : 1),
+          dots.length - 1
+        ),
+        0
+      );
+      setTimeout(updateActiveDot, 100);
+    };
+
     arrowBtns.forEach((arrowBtn) => {
-      arrowBtn.addEventListener("click", () => {
-        const itemWidth =
-          carousel.querySelector(".forecast-item").offsetWidth + gapValue;
-        const scrollAmount =
-          arrowBtn.id === "left" ? -itemWidth * 8 : itemWidth * 8;
-        carousel.scrollLeft += scrollAmount;
-        currentPage = Math.max(
-          Math.min(
-            currentPage + (arrowBtn.id === "left" ? -1 : 1),
-            dots.length - 1
-          ),
-          0
-        );
-        setTimeout(() => {
-          updateActiveDot();
-        }, 100);
-      });
+      arrowBtn.addEventListener("click", () =>
+        handleArrowButtonClick(arrowBtn)
+      );
     });
 
     carousel.addEventListener("scroll", () => {
@@ -88,14 +90,12 @@ const eventHandlers = (() => {
     const startDrag = (e) => {
       isDragging = true;
       carousel.classList.add("dragging");
-      // Record the initial cursor position and scroll position of the carousel
       startCursorX = e.pageX;
       initialScrollLeft = carousel.scrollLeft;
     };
 
     const drag = (e) => {
       if (!isDragging) return;
-
       const cursorMovementX = startCursorX - e.pageX;
       const newScrollLeft = initialScrollLeft + cursorMovementX;
       carousel.scrollLeft = newScrollLeft;
@@ -110,6 +110,7 @@ const eventHandlers = (() => {
     carousel.addEventListener("mousemove", drag);
     document.addEventListener("mouseup", endDrag);
   };
+
 
   const forecastListeners = (forecastDaily, forecastHourly) => {
     const forecastForm = document.getElementById("forecast-form");
