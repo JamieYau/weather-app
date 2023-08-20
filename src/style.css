@@ -21,7 +21,7 @@ header {
   padding: 1rem 2rem;
   background-color: #dbdbdb;
 
-  #search-container {
+  #search-form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,8 +34,13 @@ header {
       transition: all 0.3s;
     }
 
-    box-icon {
+    button {
       cursor: pointer;
+      border: none;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

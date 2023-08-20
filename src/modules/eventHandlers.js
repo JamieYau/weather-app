@@ -4,34 +4,33 @@ import weatherAPI from "./weatherAPI";
 
 const eventHandlers = (() => {
   const searchListener = () => {
+    const searchForm = document.getElementById("search-form");
     const searchInput = document.getElementById("location");
-    const searchIcon = document.getElementById("search-icon");
+    const errorMessage = document.getElementById("error-message");
 
     // Helper function to perform the search
     async function performSearch(query) {
-      const data = await weatherAPI.fetchData(query);
-      const currentWeather = weatherAPI.getCurrentData(data);
-      const forecastDaily = weatherAPI.getForecastData(data);
-      const location = weatherAPI.getLocationData(data);
-      const forecastHoulry = weatherAPI.getNext24HoursForecast(data);
+      try {
+        errorMessage.textContent = "";
+        const data = await weatherAPI.fetchData(query);
+        const currentWeather = weatherAPI.getCurrentData(data);
+        const forecastDaily = weatherAPI.getForecastData(data);
+        const location = weatherAPI.getLocationData(data);
+        const forecastHoulry = weatherAPI.getNext24HoursForecast(data);
 
-      render.renderCurrentWeather(currentWeather, location);
-      render.updateDailyForecast(forecastDaily);
+        render.renderCurrentWeather(currentWeather, location);
+        render.updateDailyForecast(forecastDaily);
 
-      eventHandlers.forecastListeners(forecastDaily, forecastHoulry);
+        eventHandlers.forecastListeners(forecastDaily, forecastHoulry);
+      } catch (error) {
+        render.renderError(error.message);
+      }
     }
 
-    // Handle search when the search icon is clicked
-    searchIcon.addEventListener("click", () => {
+    // Handle form submission
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault(); // Prevent the default form submission behavior
       performSearch(searchInput.value);
-    });
-
-    // Handle search when the enter key is pressed in the search input
-    searchInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        performSearch(searchInput.value);
-        event.preventDefault();
-      }
     });
   };
 
@@ -110,7 +109,6 @@ const eventHandlers = (() => {
     carousel.addEventListener("mousemove", drag);
     document.addEventListener("mouseup", endDrag);
   };
-
 
   const forecastListeners = (forecastDaily, forecastHourly) => {
     const forecastForm = document.getElementById("forecast-form");

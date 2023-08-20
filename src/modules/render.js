@@ -51,23 +51,32 @@ const render = (() => {
   function initializePage() {
     function createHeader() {
       const header = document.createElement("header");
-      const searchContainer = document.createElement("div");
-      searchContainer.id = "search-container";
+      const searchForm = document.createElement("form");
+      searchForm.id = "search-form";
 
       const searchInput = document.createElement("input");
       searchInput.type = "search";
       searchInput.name = "location";
       searchInput.id = "location";
       searchInput.placeholder = "Search Location...";
+      searchInput.required = true;
+      searchInput.minLength = 2;
 
+      const searchButton = document.createElement("button");
+      searchButton.type = "submit";
       const searchIcon = document.createElement("box-icon");
       searchIcon.setAttribute("name", "search");
       searchIcon.id = "search-icon";
       searchIcon.setAttribute("color", "grey");
+      searchButton.appendChild(searchIcon);
 
-      searchContainer.appendChild(searchInput);
-      searchContainer.appendChild(searchIcon);
-      header.appendChild(searchContainer);
+      const errorMessage = document.createElement("div");
+      errorMessage.id = "error-message";
+
+      searchForm.appendChild(searchInput);
+      searchForm.appendChild(searchButton);
+      searchForm.appendChild(errorMessage);
+      header.appendChild(searchForm);
       document.body.appendChild(header);
     }
 
@@ -232,6 +241,12 @@ const render = (() => {
     createForecastSection();
   }
 
+  function renderError(errorMessage) {
+    const errorMessageElement = document.getElementById("error-message");
+    errorMessageElement.textContent = errorMessage;
+
+  }
+
   function renderCurrentWeather(currentWeather, location) {
     // Update DOM with current weather data
     const info = document.getElementById("weather-info");
@@ -359,6 +374,7 @@ const render = (() => {
 
   return {
     initializePage,
+    renderError,
     renderCurrentWeather,
     renderDailyForecast,
     updateDailyForecast,
