@@ -37,6 +37,15 @@ const eventHandlers = (() => {
       });
     };
 
+    searchInput.addEventListener("focus", async () => {
+      const query = searchInput.value;
+      if (query) {
+        const suggestions = await weatherAPI.fetchSuggestions(query);
+        render.updateSuggestions(suggestions);
+        suggestionsListener();
+      }
+    });
+
     searchInput.addEventListener("input", async () => {
       const query = searchInput.value;
       if (query) {
@@ -46,6 +55,12 @@ const eventHandlers = (() => {
       } else {
         render.clearSuggestions();
       }
+    });
+
+    searchInput.addEventListener("blur", () => {
+      setTimeout(() => {
+        render.clearSuggestions();
+      }, 200); // Delay to allow click on suggestion item before clearing
     });
 
     // Handle form submission

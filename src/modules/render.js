@@ -59,6 +59,7 @@ const render = (() => {
       searchInput.name = "location";
       searchInput.id = "location";
       searchInput.placeholder = "Search Location...";
+      searchInput.autocomplete = "off";
       searchInput.required = true;
       searchInput.minLength = 2;
 
