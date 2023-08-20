@@ -33,8 +33,9 @@ const eventHandlers = (() => {
         } else {
           currentPage = Math.min(currentPage + 1, dots.length - 1);
         }
-
-        updateActiveDot(); // Update the active dot
+        setTimeout(() => {
+          updateActiveDot();
+        }, 100);
       });
     });
 
