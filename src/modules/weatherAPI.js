@@ -5,6 +5,14 @@ const weatherAPI = (() => {
   const API_KEY = process.env.API_KEY;
   /* eslint-enable prefer-destructuring */
 
+  async function fetchSuggestions(query) {
+    const response = await fetch(
+      `${API_ROOT}search.json?key=${API_KEY}&q=${query}`
+    );
+    const data = await response.json();
+    return data;
+  }
+
   async function fetchData(city) {
     const response = await fetch(
       `${API_ROOT}forecast.json?key=${API_KEY}&q=${city}&days=3&aqi=no&alerts=no`
@@ -81,6 +89,7 @@ const weatherAPI = (() => {
   }
 
   return {
+    fetchSuggestions,
     fetchData,
     getCurrentData,
     getForecastData,

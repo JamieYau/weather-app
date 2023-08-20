@@ -27,10 +27,21 @@ const eventHandlers = (() => {
       }
     }
 
+    searchInput.addEventListener("input", async () => {
+      const query = searchInput.value;
+      if (query) {
+        const suggestions = await weatherAPI.fetchSuggestions(query);
+        render.renderSuggestions(suggestions);
+      } else {
+        render.clearSuggestions();
+      }
+    });
+
     // Handle form submission
     searchForm.addEventListener("submit", (event) => {
       event.preventDefault(); // Prevent the default form submission behavior
       performSearch(searchInput.value);
+      render.clearSuggestions();
     });
   };
 

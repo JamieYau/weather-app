@@ -73,10 +73,14 @@ const render = (() => {
       const errorMessage = document.createElement("div");
       errorMessage.id = "error-message";
 
+      const suggestionsList = document.createElement("ul");
+      suggestionsList.id = "suggestions-list";
+
       searchForm.appendChild(searchInput);
       searchForm.appendChild(searchButton);
       searchForm.appendChild(errorMessage);
       header.appendChild(searchForm);
+      header.appendChild(suggestionsList);
       document.body.appendChild(header);
     }
 
@@ -241,10 +245,25 @@ const render = (() => {
     createForecastSection();
   }
 
+  function clearSuggestions() {
+    const suggestionsList = document.getElementById("suggestions-list");
+    suggestionsList.innerHTML = "";
+    return suggestionsList;
+  }
+
+  function renderSuggestions(suggestions) {
+    const suggestionsList = clearSuggestions();
+    suggestions.forEach((suggestion) => {
+      const suggestionItem = document.createElement("li");
+      suggestionItem.classList.add("suggestion-item");
+      suggestionItem.textContent = suggestion.name;
+      suggestionsList.appendChild(suggestionItem);
+    });
+  }
+
   function renderError(errorMessage) {
     const errorMessageElement = document.getElementById("error-message");
     errorMessageElement.textContent = errorMessage;
-
   }
 
   function renderCurrentWeather(currentWeather, location) {
@@ -374,6 +393,8 @@ const render = (() => {
 
   return {
     initializePage,
+    clearSuggestions,
+    renderSuggestions,
     renderError,
     renderCurrentWeather,
     renderDailyForecast,
