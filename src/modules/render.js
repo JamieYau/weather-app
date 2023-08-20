@@ -60,7 +60,6 @@ const render = (() => {
       searchInput.id = "location";
       searchInput.placeholder = "Search Location...";
       searchInput.autocomplete = "off";
-      searchInput.required = true;
       searchInput.minLength = 2;
 
       const searchButton = document.createElement("button");
@@ -256,8 +255,19 @@ const render = (() => {
     const suggestionsList = clearSuggestions();
     suggestions.forEach((suggestion) => {
       const suggestionItem = document.createElement("li");
+      console.log(suggestion);
       suggestionItem.classList.add("suggestion-item");
-      suggestionItem.textContent = suggestion.name;
+      const mapIcon = document.createElement("i");
+      mapIcon.classList.add("fas", "fa-location-dot")
+      const suggestionName = document.createElement("span");
+      suggestionName.classList.add("name");
+      suggestionName.textContent = suggestion.name;
+      const suggestionCountry = document.createElement("span");
+      suggestionCountry.classList.add("country");
+      suggestionCountry.textContent = `(${suggestion.country})`;
+      suggestionItem.appendChild(mapIcon);
+      suggestionItem.appendChild(suggestionName);
+      suggestionItem.appendChild(suggestionCountry);
       suggestionsList.appendChild(suggestionItem);
     });
   }
