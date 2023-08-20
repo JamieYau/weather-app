@@ -1,23 +1,23 @@
+/* eslint-disable no-param-reassign */
 import render from "./render";
 
 const eventHandlers = (() => {
-  function carouselListeners() {
+
+  const carouselListeners = () => {
     const carousel = document.getElementById("carousel");
     const arrowBtns = document.querySelectorAll(".navigation-button");
+    const dots = document.querySelectorAll(".dot");
+    let currentPage = 0;
     const gapValue = parseInt(
       window.getComputedStyle(carousel).getPropertyValue("gap"),
       10
     );
-    const dots = document.querySelectorAll(".dot");
 
-    let currentPage = 0; // Initial page is 0
-
-    // Update the active dot based on the current page
-    function updateActiveDot() {
+    const updateActiveDot = () => {
       dots.forEach((dot, index) => {
         dot.classList.toggle("active", index === currentPage);
       });
-    }
+    };
 
     arrowBtns.forEach((arrowBtn) => {
       arrowBtn.addEventListener("click", () => {
@@ -26,20 +26,19 @@ const eventHandlers = (() => {
         const scrollAmount =
           arrowBtn.id === "left" ? -itemWidth * 8 : itemWidth * 8;
         carousel.scrollLeft += scrollAmount;
-
-        // Update the current page based on the scroll direction
-        if (arrowBtn.id === "left") {
-          currentPage = Math.max(currentPage - 1, 0);
-        } else {
-          currentPage = Math.min(currentPage + 1, dots.length - 1);
-        }
+        currentPage = Math.max(
+          Math.min(
+            currentPage + (arrowBtn.id === "left" ? -1 : 1),
+            dots.length - 1
+          ),
+          0
+        );
         setTimeout(() => {
           updateActiveDot();
         }, 100);
       });
     });
 
-    // Add a scroll listener to update the active dot when the carousel is scrolled
     carousel.addEventListener("scroll", () => {
       const currentPageOnScroll = Math.floor(
         carousel.scrollLeft / carousel.offsetWidth
@@ -49,24 +48,26 @@ const eventHandlers = (() => {
         updateActiveDot();
       }
     });
-  }
+  };
 
-  function forecastListeners(forecastData) {
+  const forecastListeners = (forecastDaily, forecastHourly) => {
     const forecastForm = document.getElementById("forecast-form");
 
     forecastForm.addEventListener("change", (event) => {
       const selectedOption = event.target.id;
       const forecastContainer = document.getElementById("forecast-container");
       forecastContainer.innerHTML = "";
+
       if (selectedOption === "daily") {
         render.renderDailyForecast(forecastContainer);
-        render.updateDailyForecast(forecastData);
+        render.updateDailyForecast(forecastDaily);
       } else if (selectedOption === "hourly") {
         render.renderHourlyForecast(forecastContainer);
+        render.updateHourlyForecast(forecastHourly);
         carouselListeners();
       }
     });
-  }
+  };
 
   return {
     forecastListeners,

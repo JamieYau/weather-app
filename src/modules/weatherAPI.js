@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const weatherAPI = (() => {
   /* eslint-disable prefer-destructuring */
   const API_ROOT = process.env.API_ROOT;
@@ -73,7 +74,9 @@ const weatherAPI = (() => {
     const hoursData = forecastDays.flatMap((day) => day.hour);
 
     const next24HoursData = hoursData.slice(currentHour, currentHour + 24);
-
+    next24HoursData.forEach((hour) => {
+      hour.condition.icon = `https:${hour.condition.icon.slice(2)}`;
+    });
     return next24HoursData;
   }
 

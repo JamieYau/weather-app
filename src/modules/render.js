@@ -342,12 +342,29 @@ const render = (() => {
     forecastContainer.appendChild(createCarousel());
   }
 
+  function updateHourlyForecast(hourlyForecastData) {
+    // Update DOM with forecast data
+    const items = document.querySelectorAll(".forecast-item");
+    items.forEach((item, index) => {
+      const hour = item.querySelector(".hour");
+      hour.textContent = formatLocalTime(
+        hourlyForecastData[index].time
+      ).localTimeFormatted;
+      const temp = item.querySelector(".temp");
+      temp.textContent = `${hourlyForecastData[index].temp_c} °C`;
+      const icon = item.querySelector(".icon");
+      console.log(hourlyForecastData[index]);
+      icon.src = hourlyForecastData[index].condition.icon;
+    });
+  }
+
   return {
     initializePage,
     renderCurrentWeather,
     renderDailyForecast,
     updateDailyForecast,
     renderHourlyForecast,
+    updateHourlyForecast,
   };
 })();
 

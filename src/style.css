@@ -8,13 +8,17 @@
 
 body {
   font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
+  flex: 0 0 auto;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 2rem;
   background-color: #dbdbdb;
 
   #search-container {
@@ -37,6 +41,7 @@ header {
 }
 
 main {
+  flex: 1 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -67,12 +72,18 @@ main {
 }
 
 /* Forecast */
+section.forecast {
+  flex: 0 0 auto;
+
+  > * {
+    padding: 1rem 2rem;
+  }
+}
 
 #forecast-form {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 1rem;
   gap: 1rem;
   border: solid 2px #ccc;
 
@@ -131,7 +142,6 @@ main {
 #forecast-container {
   display: flex;
   gap: 1rem;
-  padding: 1rem;
   background-color: #dbdbdb;
 
   .forecast-item {
