@@ -6,12 +6,11 @@ const eventHandlers = (() => {
   const searchListener = () => {
     const searchForm = document.getElementById("search-form");
     const searchInput = document.getElementById("location");
-    const errorMessage = document.getElementById("error-message");
 
     // Helper function to perform the search
     async function performSearch(query) {
       try {
-        errorMessage.textContent = "";
+        render.clearError();
         const data = await weatherAPI.fetchData(query);
         const currentWeather = weatherAPI.getCurrentData(data);
         const forecastDaily = weatherAPI.getForecastData(data);

@@ -261,8 +261,14 @@ const render = (() => {
     });
   }
 
+  function clearError() {
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.textContent = "";
+    return errorMessage;
+  }
+
   function renderError(errorMessage) {
-    const errorMessageElement = document.getElementById("error-message");
+    const errorMessageElement = clearError();
     errorMessageElement.textContent = errorMessage;
   }
 
@@ -395,6 +401,7 @@ const render = (() => {
     initializePage,
     clearSuggestions,
     renderSuggestions,
+    clearError,
     renderError,
     renderCurrentWeather,
     renderDailyForecast,
