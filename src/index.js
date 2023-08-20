@@ -8,20 +8,20 @@ async function fetchWeatherData(city) {
 
   const data = await weatherAPI.fetchData(city);
   const currentWeather = weatherAPI.getCurrentData(data);
-  const forecastWeather = weatherAPI.getForecastData(data);
+  const forecastDaily = weatherAPI.getForecastData(data);
   const location = weatherAPI.getLocationData(data);
   const forecastHoulry = weatherAPI.getNext24HoursForecast(data);
 
-  console.log(data);
-  console.log(currentWeather);
-  console.log(forecastWeather);
-  console.log(location);
-  console.log(forecastHoulry);
+  // console.log(data);
+  // console.log(currentWeather);
+  // console.log(forecastDaily);
+  // console.log(location);
+  // console.log(forecastHoulry);
 
   render.renderCurrentWeather(currentWeather, location);
-  render.updateDailyForecast(forecastWeather);
+  render.updateDailyForecast(forecastDaily);
 
-  eventHandlers.forecastListeners(forecastWeather);
+  eventHandlers.forecastListeners(forecastDaily, forecastHoulry);
 }
 
 render.initializePage();
