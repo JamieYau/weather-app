@@ -19,11 +19,11 @@ const eventHandlers = (() => {
 
         render.renderCurrentWeather(currentWeather, location);
         render.updateDailyForecast(forecastDaily);
-
         eventHandlers.forecastListeners(forecastDaily, forecastHoulry);
       } catch (error) {
         render.updateError(error.message);
       }
+      searchInput.value = "";
     }
 
     const suggestionsListener = () => {
@@ -31,7 +31,6 @@ const eventHandlers = (() => {
       suggestions.forEach((suggestion) => {
         suggestion.addEventListener("click", () => {
           const query = suggestion.textContent;
-          searchInput.value = query;
           performSearch(query);
         });
       });
