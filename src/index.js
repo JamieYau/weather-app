@@ -22,6 +22,7 @@ async function fetchWeatherData(city) {
   render.updateDailyForecast(forecastDaily);
 
   eventHandlers.forecastListeners(forecastDaily, forecastHoulry);
+  eventHandlers.searchListener();
 }
 
 render.initializePage();

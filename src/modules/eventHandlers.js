@@ -1,7 +1,39 @@
 /* eslint-disable no-param-reassign */
 import render from "./render";
+import weatherAPI from "./weatherAPI";
 
 const eventHandlers = (() => {
+  const searchListener = () => {
+    const searchInput = document.getElementById("location");
+    const searchIcon = document.getElementById("search-icon");
+
+    // Helper function to perform the search
+    async function performSearch(query) {
+      const data = await weatherAPI.fetchData(query);
+      const currentWeather = weatherAPI.getCurrentData(data);
+      const forecastDaily = weatherAPI.getForecastData(data);
+      const location = weatherAPI.getLocationData(data);
+      const forecastHoulry = weatherAPI.getNext24HoursForecast(data);
+
+      render.renderCurrentWeather(currentWeather, location);
+      render.updateDailyForecast(forecastDaily);
+
+      eventHandlers.forecastListeners(forecastDaily, forecastHoulry);
+    }
+
+    // Handle search when the search icon is clicked
+    searchIcon.addEventListener("click", () => {
+      performSearch(searchInput.value);
+    });
+
+    // Handle search when the enter key is pressed in the search input
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        performSearch(searchInput.value);
+        event.preventDefault();
+      }
+    });
+  };
 
   const carouselListeners = () => {
     const carousel = document.getElementById("carousel");
@@ -71,6 +103,7 @@ const eventHandlers = (() => {
 
   return {
     forecastListeners,
+    searchListener,
   };
 })();
 

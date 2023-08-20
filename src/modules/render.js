@@ -353,7 +353,6 @@ const render = (() => {
       const temp = item.querySelector(".temp");
       temp.textContent = `${hourlyForecastData[index].temp_c} °C`;
       const icon = item.querySelector(".icon");
-      console.log(hourlyForecastData[index]);
       icon.src = hourlyForecastData[index].condition.icon;
     });
   }
