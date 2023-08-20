@@ -22,7 +22,7 @@ const eventHandlers = (() => {
 
         eventHandlers.forecastListeners(forecastDaily, forecastHoulry);
       } catch (error) {
-        render.renderError(error.message);
+        render.updateError(error.message);
       }
     }
 
@@ -30,7 +30,7 @@ const eventHandlers = (() => {
       const query = searchInput.value;
       if (query) {
         const suggestions = await weatherAPI.fetchSuggestions(query);
-        render.renderSuggestions(suggestions);
+        render.updateSuggestions(suggestions);
       } else {
         render.clearSuggestions();
       }

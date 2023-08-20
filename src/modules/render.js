@@ -79,8 +79,8 @@ const render = (() => {
       searchForm.appendChild(searchInput);
       searchForm.appendChild(searchButton);
       searchForm.appendChild(errorMessage);
+      searchForm.appendChild(suggestionsList);
       header.appendChild(searchForm);
-      header.appendChild(suggestionsList);
       document.body.appendChild(header);
     }
 
@@ -251,7 +251,7 @@ const render = (() => {
     return suggestionsList;
   }
 
-  function renderSuggestions(suggestions) {
+  function updateSuggestions(suggestions) {
     const suggestionsList = clearSuggestions();
     suggestions.forEach((suggestion) => {
       const suggestionItem = document.createElement("li");
@@ -267,7 +267,7 @@ const render = (() => {
     return errorMessage;
   }
 
-  function renderError(errorMessage) {
+  function updateError(errorMessage) {
     const errorMessageElement = clearError();
     errorMessageElement.textContent = errorMessage;
   }
@@ -400,9 +400,9 @@ const render = (() => {
   return {
     initializePage,
     clearSuggestions,
-    renderSuggestions,
+    updateSuggestions,
     clearError,
-    renderError,
+    updateError,
     renderCurrentWeather,
     renderDailyForecast,
     updateDailyForecast,
