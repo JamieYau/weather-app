@@ -26,11 +26,23 @@ const eventHandlers = (() => {
       }
     }
 
+    const suggestionsListener = () => {
+      const suggestions = document.querySelectorAll(".suggestion-item");
+      suggestions.forEach((suggestion) => {
+        suggestion.addEventListener("click", () => {
+          const query = suggestion.textContent;
+          searchInput.value = query;
+          performSearch(query);
+        });
+      });
+    };
+
     searchInput.addEventListener("input", async () => {
       const query = searchInput.value;
       if (query) {
         const suggestions = await weatherAPI.fetchSuggestions(query);
         render.updateSuggestions(suggestions);
+        suggestionsListener();
       } else {
         render.clearSuggestions();
       }
