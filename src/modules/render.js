@@ -289,6 +289,10 @@ const render = (() => {
       for (let i = 0; i < 3; i += 1) {
         const dot = document.createElement("li");
         dot.classList.add("dot");
+        dot.dataset.index = i;
+        if (i === 0) {
+          dot.classList.add("active");
+        }
         dotsContainer.appendChild(dot);
       }
       carouselNavigation.appendChild(dotsContainer);
