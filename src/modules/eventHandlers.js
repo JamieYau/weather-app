@@ -22,6 +22,7 @@ const eventHandlers = (() => {
         eventHandlers.forecastListeners(forecastDaily, forecastHoulry);
       } catch (error) {
         render.updateError(error.message);
+        setTimeout(render.clearError, 2000);
       }
       searchInput.value = "";
     }
