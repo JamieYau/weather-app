@@ -39,10 +39,16 @@ const render = (() => {
       day.textContent = formatLocalTime(
         dailyForecastData[index].date
       ).localDayFormatted;
+      const unit = document.body.classList.value;
       const tempHigh = item.querySelector(".temp-high");
-      tempHigh.textContent = `${dailyForecastData[index].tempHighC} °C`;
       const tempLow = item.querySelector(".temp-low");
-      tempLow.textContent = `${dailyForecastData[index].tempLowC} °C`;
+      if (unit === "celsius") {
+        tempHigh.textContent = `${dailyForecastData[index].tempHighC} °C`;
+        tempLow.textContent = `${dailyForecastData[index].tempLowC} °C`;
+      } else {
+        tempHigh.textContent = `${dailyForecastData[index].tempHighF} °F`;
+        tempLow.textContent = `${dailyForecastData[index].tempLowF} °F`;
+      }
       const icon = item.querySelector(".icon");
       icon.src = dailyForecastData[index].conditionIcon;
     });
@@ -244,6 +250,7 @@ const render = (() => {
     }
 
     // Call the functions to create the sections
+    document.body.className = "celsius";
     createHeader();
     createMain();
     createForecastSection();
@@ -305,11 +312,16 @@ const render = (() => {
     conditionIcon.src = currentWeather.conditionIcon;
     const conditionText = info.querySelector(".condition-text");
     conditionText.textContent = currentWeather.conditionText;
+    const unit = document.body.classList.value;
     const temperature = info.querySelector(".temperature");
-    temperature.textContent = `${currentWeather.temperatureC} °C`;
-
     const feelsLikeValue = document.getElementById("feels-like-value");
-    feelsLikeValue.textContent = `${currentWeather.feelsLikeC} °C`;
+    if (unit === "celsius") {
+      temperature.textContent = `${currentWeather.temperatureC} °C`;
+      feelsLikeValue.textContent = `${currentWeather.feelsLikeC} °C`;
+    } else {
+      temperature.textContent = `${currentWeather.temperatureF} °F`;
+      feelsLikeValue.textContent = `${currentWeather.feelsLikeF} °F`;
+    }
     const humidity = document.getElementById("humidity-value");
     humidity.textContent = `${currentWeather.humidity}%`;
     const windSpeed = document.getElementById("wind-speed-value");
@@ -406,8 +418,13 @@ const render = (() => {
       hour.textContent = formatLocalTime(
         hourlyForecastData[index].time
       ).localTimeFormatted;
+      const unit = document.body.classList.value;
       const temp = item.querySelector(".temp");
-      temp.textContent = `${hourlyForecastData[index].temp_c} °C`;
+      if (unit === "celsius") {
+        temp.textContent = `${hourlyForecastData[index].temp_c} °C`;
+      } else {
+        temp.textContent = `${hourlyForecastData[index].temp_f} °F`;
+      }
       const icon = item.querySelector(".icon");
       icon.src = hourlyForecastData[index].condition.icon;
     });

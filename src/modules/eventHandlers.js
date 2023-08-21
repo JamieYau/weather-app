@@ -147,6 +147,36 @@ const eventHandlers = (() => {
     document.addEventListener("mouseup", endDrag);
   };
 
+  const unitListeners = (
+    currentWeather,
+    location,
+    forecastDaily,
+    forecastHourly
+  ) => {
+    const unitForm = document.getElementById("unit-form");
+
+    unitForm.addEventListener("change", (event) => {
+      document.body.className = event.target.id;
+      const forecastContainer = document.getElementById("forecast-container");
+      forecastContainer.innerHTML = "";
+
+      // check if selected forecast is daily or hourly
+      // if daily, update daily forecast
+      // else update hourly forecast
+      // pass in selectedUnit to render functions
+      render.renderCurrentWeather(currentWeather, location);
+
+      if (document.getElementById("daily").checked) {
+        render.renderDailyForecast(forecastContainer);
+        render.updateDailyForecast(forecastDaily);
+      } else {
+        render.renderHourlyForecast(forecastContainer);
+        render.updateHourlyForecast(forecastHourly);
+        carouselListeners();
+      }
+    });
+  };
+
   const forecastListeners = (forecastDaily, forecastHourly) => {
     const forecastForm = document.getElementById("forecast-form");
 
@@ -169,6 +199,7 @@ const eventHandlers = (() => {
   return {
     forecastListeners,
     searchListener,
+    unitListeners,
   };
 })();
 

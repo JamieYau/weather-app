@@ -5,7 +5,6 @@ import render from "./modules/render";
 import eventHandlers from "./modules/eventHandlers";
 
 async function fetchWeatherData(city) {
-
   const data = await weatherAPI.fetchData(city);
   const currentWeather = weatherAPI.getCurrentData(data);
   const forecastDaily = weatherAPI.getForecastData(data);
@@ -23,6 +22,12 @@ async function fetchWeatherData(city) {
 
   eventHandlers.forecastListeners(forecastDaily, forecastHoulry);
   eventHandlers.searchListener();
+  eventHandlers.unitListeners(
+    currentWeather,
+    location,
+    forecastDaily,
+    forecastHoulry
+  );
 }
 
 render.initializePage();
