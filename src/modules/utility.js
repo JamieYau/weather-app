@@ -24,7 +24,6 @@ export default function formatLocalTime(localTime) {
   const optionsTime = {
     hour: "numeric",
     minute: "numeric",
-    timeZoneName: "short",
   };
   const optionsDay = {
     weekday: "long",

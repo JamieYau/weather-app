@@ -25,6 +25,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   color: white;
+  padding: 3rem;
 }
 
 ul {
@@ -36,7 +37,7 @@ header {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 1rem 2rem;
+  margin-bottom: 2rem;
 
   #search-form {
     position: relative;
@@ -126,7 +127,6 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 2rem;
   color: #ededed;
 
   #weather-info {
@@ -154,10 +154,6 @@ main {
 /* Forecast */
 section.forecast {
   flex: 0 0 auto;
-
-  > * {
-    padding: 1rem 2rem;
-  }
 }
 
 #forecast-form {
@@ -165,6 +161,7 @@ section.forecast {
   justify-content: flex-start;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 1rem;
 
   label {
     display: flex;
@@ -226,7 +223,6 @@ section.forecast {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
   padding: 1rem;
   background-color: #ffffffb5;
   color: #010101;
@@ -235,6 +231,21 @@ section.forecast {
 
   &.hourly {
     scroll-snap-align: start;
+    padding: 1rem 0.5rem;
+  }
+
+  :first-child {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  :nth-child(2) {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  :nth-child(3) {
+    font-size: 0.9rem;
   }
 }
 
