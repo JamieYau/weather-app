@@ -98,20 +98,20 @@ const render = (() => {
       localDate.classList.add("local-date");
       const localTime = document.createElement("div");
       localTime.classList.add("local-time");
+      const temperature = document.createElement("div");
+      temperature.classList.add("temperature");
       const conditionIcon = document.createElement("img");
       conditionIcon.classList.add("condition-icon");
       const conditionText = document.createElement("div");
       conditionText.classList.add("condition-text");
-      const temperature = document.createElement("div");
-      temperature.classList.add("temperature");
 
       weatherInfo.appendChild(city);
       weatherInfo.appendChild(country);
       weatherInfo.appendChild(localDate);
       weatherInfo.appendChild(localTime);
+      weatherInfo.appendChild(temperature);
       weatherInfo.appendChild(conditionIcon);
       weatherInfo.appendChild(conditionText);
-      weatherInfo.appendChild(temperature);
 
       function createExtraInfoElement(
         id,
@@ -260,7 +260,7 @@ const render = (() => {
       const suggestionItem = document.createElement("li");
       suggestionItem.classList.add("suggestion-item");
       const mapIcon = document.createElement("i");
-      mapIcon.classList.add("fas", "fa-location-dot")
+      mapIcon.classList.add("fas", "fa-location-dot");
       const suggestionName = document.createElement("span");
       suggestionName.classList.add("name");
       suggestionName.textContent = suggestion.name;
@@ -294,7 +294,7 @@ const render = (() => {
     const { localDateFormatted, localTimeFormatted } = formatLocalTime(
       location.localTime
     );
-    console.log(location)
+    console.log(location);
     const country = info.querySelector(".country");
     country.textContent = location.country;
     const localDateElement = info.querySelector(".local-date");
