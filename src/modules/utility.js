@@ -1,4 +1,4 @@
-export default function formatLocalTime(localTime) {
+export function formatLocalTime(localTime) {
   const dateTime = new Date(localTime);
 
   const nthNumber = (number) => {
@@ -38,4 +38,23 @@ export default function formatLocalTime(localTime) {
   )}${nthNumber(dateTime.getDay())}`;
 
   return { localDateFormatted, localTimeFormatted, localDayFormatted };
+}
+
+// Create an element with optional attributes and children
+export function createElement(tag, attributes = {}, children = []) {
+  const element = document.createElement(tag);
+
+  Object.entries(attributes).forEach(([attr, value]) => {
+    if (attr === "textContent") {
+      element.textContent = value;
+    } else if (value === false) {
+      element.removeAttribute(attr);
+    } else {
+      element.setAttribute(attr, value);
+    }
+  });
+
+  children.forEach((child) => element.appendChild(child));
+
+  return element;
 }

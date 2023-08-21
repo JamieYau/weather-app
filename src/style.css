@@ -291,6 +291,10 @@ section.forecast {
     .forecast-item {
       cursor: grabbing;
       user-select: none;
+
+      > * {
+        pointer-events: none;
+      }
     }
   }
 

@@ -1,4 +1,4 @@
-import formatLocalTime from "./utility";
+import { formatLocalTime, createElement } from "./utility";
 
 const render = (() => {
   function renderDailyForecast(forecastContainer) {
@@ -49,200 +49,201 @@ const render = (() => {
   }
 
   function initializePage() {
+    // Create the search input and button
+    function createSearchForm() {
+      const searchInput = createElement("input", {
+        type: "search",
+        name: "location",
+        id: "location",
+        placeholder: "Search Location...",
+        autocomplete: "off",
+        minLength: 2,
+      });
+
+      const searchIcon = createElement("box-icon", {
+        name: "search",
+        id: "search-icon",
+        color: "white",
+      });
+
+      const searchButton = createElement("button", { type: "submit" }, [
+        searchIcon,
+      ]);
+      const errorMessage = createElement("div", { id: "error-message" });
+      const suggestionsList = createElement("ul", { id: "suggestions-list" });
+      const searchForm = createElement("form", { id: "search-form" }, [
+        searchInput,
+        searchButton,
+        errorMessage,
+        suggestionsList,
+      ]);
+
+      return searchForm;
+    }
+
+    function createRadioForm(id, name, values, checkedValue) {
+      const form = createElement("form", {
+        id,
+        class: "radio-form",
+      });
+      values.forEach((value) => {
+        const input = createElement("input", {
+          type: "radio",
+          name,
+          id: value,
+          checked: value === checkedValue,
+        });
+        const inputLabel = createElement("label", {
+          for: value,
+          textContent: value.charAt(0).toUpperCase() + value.slice(1),
+        });
+        form.appendChild(input);
+        form.appendChild(inputLabel);
+      });
+      return form;
+    }
+
+    function createWeatherInfo() {
+      const infoItems = [
+        {
+          id: "city",
+          class: "city",
+        },
+        {
+          id: "country",
+          class: "country",
+        },
+        {
+          id: "local-date",
+          class: "local-date",
+        },
+        {
+          id: "local-time",
+          class: "local-time",
+        },
+        {
+          id: "condition-icon",
+          class: "condition-icon",
+        },
+        {
+          id: "condition-text",
+          class: "condition-text",
+        },
+        {
+          id: "temperature",
+          class: "temperature",
+        },
+      ];
+
+      const elements = infoItems.map(({ id, class: className }) =>
+        createElement("div", { id, class: className })
+      );
+
+      return createElement("section", { id: "weather-info" }, elements);
+    }
+
+    // Create the weather extra info elements
+    function createWeatherExtraInfo() {
+      const extraInfoItems = [
+        {
+          id: "feels-like",
+          iconType: "solid",
+          iconName: "thermometer",
+          iconColor: "white",
+          labelText: "Feels Like",
+        },
+        {
+          id: "humidity",
+          iconName: "water",
+          iconColor: "white",
+          labelText: "Humidity",
+        },
+        {
+          id: "wind-speed",
+          iconName: "wind",
+          iconColor: "white",
+          labelText: "Wind Speed",
+        },
+        {
+          id: "wind-direction",
+          iconName: "compass",
+          iconColor: "white",
+          labelText: "Wind Direction",
+        },
+        {
+          id: "uv-index",
+          iconName: "sun",
+          iconColor: "white",
+          labelText: "UV Index",
+        },
+      ];
+
+      const elements = extraInfoItems.map(
+        ({ id, iconType, iconName, iconColor, labelText }) => {
+          const icon = createElement("box-icon", {
+            ...(iconType ? { type: iconType } : {}),
+            name: iconName,
+            color: iconColor,
+          });
+          const info = createElement("div", { class: "extra-item-info" }, [
+            createElement("div", { id: `${id}-text`, textContent: labelText }),
+            createElement("div", { id: `${id}-value` }),
+          ]);
+          return createElement("div", { id, class: "extra-item" }, [
+            icon,
+            info,
+          ]);
+        }
+      );
+
+      return createElement("section", { id: "weather-extra-info" }, elements);
+    }
+
+    // Create the entire header section
     function createHeader() {
-      const header = document.createElement("header");
-      const searchForm = document.createElement("form");
-      searchForm.id = "search-form";
-
-      const searchInput = document.createElement("input");
-      searchInput.type = "search";
-      searchInput.name = "location";
-      searchInput.id = "location";
-      searchInput.placeholder = "Search Location...";
-      searchInput.autocomplete = "off";
-      searchInput.minLength = 2;
-
-      const searchButton = document.createElement("button");
-      searchButton.type = "submit";
-      const searchIcon = document.createElement("box-icon");
-      searchIcon.setAttribute("name", "search");
-      searchIcon.id = "search-icon";
-      searchIcon.setAttribute("color", "white");
-      searchButton.appendChild(searchIcon);
-
-      const errorMessage = document.createElement("div");
-      errorMessage.id = "error-message";
-
-      const suggestionsList = document.createElement("ul");
-      suggestionsList.id = "suggestions-list";
-
-      searchForm.appendChild(searchInput);
-      searchForm.appendChild(searchButton);
-      searchForm.appendChild(errorMessage);
-      searchForm.appendChild(suggestionsList);
-      header.appendChild(searchForm);
+      const header = createElement("header", {}, [
+        createSearchForm(),
+        createRadioForm(
+          "unit-form",
+          "unit",
+          ["celsius", "fahrenheit"],
+          "celsius"
+        ),
+      ]);
       document.body.appendChild(header);
     }
 
+    // Create the main content
     function createMain() {
-      const main = document.createElement("main");
-      main.id = "container";
+      const main = createElement("main", { id: "container" }, [
+        createWeatherInfo(),
+        createWeatherExtraInfo(),
+      ]);
 
-      const weatherInfo = document.createElement("section");
-      weatherInfo.id = "weather-info";
-      const city = document.createElement("div");
-      city.classList.add("city");
-      const country = document.createElement("div");
-      country.classList.add("country");
-      const localDate = document.createElement("div");
-      localDate.classList.add("local-date");
-      const localTime = document.createElement("div");
-      localTime.classList.add("local-time");
-      const temperature = document.createElement("div");
-      temperature.classList.add("temperature");
-      const conditionIcon = document.createElement("img");
-      conditionIcon.classList.add("condition-icon");
-      const conditionText = document.createElement("div");
-      conditionText.classList.add("condition-text");
-
-      weatherInfo.appendChild(city);
-      weatherInfo.appendChild(country);
-      weatherInfo.appendChild(localDate);
-      weatherInfo.appendChild(localTime);
-      weatherInfo.appendChild(temperature);
-      weatherInfo.appendChild(conditionIcon);
-      weatherInfo.appendChild(conditionText);
-
-      function createExtraInfoElement(
-        id,
-        iconType,
-        iconName,
-        iconColor,
-        labelText
-      ) {
-        const element = document.createElement("div");
-        element.id = id;
-        element.classList.add("extra-item");
-
-        const icon = document.createElement("box-icon");
-        if (iconType) {
-          icon.setAttribute("type", iconType);
-        }
-        icon.setAttribute("name", iconName);
-        icon.setAttribute("color", iconColor);
-        element.appendChild(icon);
-
-        const info = document.createElement("div");
-        info.classList.add("extra-item-info");
-
-        const labelTextElement = document.createElement("div");
-        labelTextElement.id = `${id}-text`;
-        labelTextElement.textContent = labelText;
-
-        const valueElement = document.createElement("div");
-        valueElement.id = `${id}-value`;
-
-        info.appendChild(labelTextElement);
-        info.appendChild(valueElement);
-        element.appendChild(info);
-
-        return element;
-      }
-
-      function createWeatherExtraInfo() {
-        const weatherExtraInfo = document.createElement("section");
-        weatherExtraInfo.id = "weather-extra-info";
-
-        const extraInfoItems = [
-          {
-            id: "feels-like",
-            iconType: "solid",
-            iconName: "thermometer",
-            iconColor: "white",
-            labelText: "Feels Like",
-          },
-          {
-            id: "humidity",
-            iconName: "water",
-            iconColor: "white",
-            labelText: "Humidity",
-          },
-          {
-            id: "wind-speed",
-            iconName: "wind",
-            iconColor: "white",
-            labelText: "Wind Speed",
-          },
-          {
-            id: "wind-direction",
-            iconName: "compass",
-            iconColor: "white",
-            labelText: "Wind Direction",
-          },
-          {
-            id: "uv-index",
-            iconName: "sun",
-            iconColor: "white",
-            labelText: "UV Index",
-          },
-        ];
-
-        extraInfoItems.forEach((item) => {
-          const extraInfoElement = createExtraInfoElement(
-            item.id,
-            item.iconType,
-            item.iconName,
-            item.iconColor,
-            item.labelText
-          );
-          weatherExtraInfo.appendChild(extraInfoElement);
-        });
-
-        return weatherExtraInfo;
-      }
-      main.appendChild(weatherInfo);
-      main.appendChild(createWeatherExtraInfo());
       document.body.appendChild(main);
     }
 
+    // Create the forecast section
     function createForecastSection() {
-      const forecast = document.createElement("section");
-      forecast.className = "forecast";
+      const forecastForm = createRadioForm(
+        "forecast-form",
+        "forecast",
+        ["daily", "hourly"],
+        "daily"
+      );
+      const forecastContainer = createElement("section", {
+        id: "forecast-container",
+      });
+      const forecast = createElement("section", { class: "forecast" }, [
+        forecastForm,
+        forecastContainer,
+      ]);
 
-      const forecastForm = document.createElement("form");
-      forecastForm.id = "forecast-form";
-
-      const dailyOption = document.createElement("input");
-      dailyOption.type = "radio";
-      dailyOption.name = "forecast";
-      dailyOption.id = "daily";
-      dailyOption.checked = true;
-      const dailyLabel = document.createElement("label");
-      dailyLabel.setAttribute("for", "daily");
-      dailyLabel.textContent = "Daily";
-
-      const hourlyOption = document.createElement("input");
-      hourlyOption.type = "radio";
-      hourlyOption.name = "forecast";
-      hourlyOption.id = "hourly";
-      const hourlyLabel = document.createElement("label");
-      hourlyLabel.setAttribute("for", "hourly");
-      hourlyLabel.textContent = "Hourly";
-
-      forecastForm.appendChild(dailyOption);
-      forecastForm.appendChild(dailyLabel);
-      forecastForm.appendChild(hourlyOption);
-      forecastForm.appendChild(hourlyLabel);
-
-      const forecastContainer = document.createElement("section");
-      forecastContainer.id = "forecast-container";
-      renderDailyForecast(forecastContainer);
-
-      forecast.appendChild(forecastForm);
-      forecast.appendChild(forecastContainer);
       document.body.appendChild(forecast);
+      renderDailyForecast(forecastContainer);
     }
 
+    // Call the functions to create the sections
     createHeader();
     createMain();
     createForecastSection();
@@ -294,7 +295,6 @@ const render = (() => {
     const { localDateFormatted, localTimeFormatted } = formatLocalTime(
       location.localTime
     );
-    console.log(location);
     const country = info.querySelector(".country");
     country.textContent = location.country;
     const localDateElement = info.querySelector(".local-date");
