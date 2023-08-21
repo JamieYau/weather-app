@@ -13,5 +13,5 @@
     "no-console": "off",
     "quotes": "off"
   },
-  "plugins": ["jest", "dotenv-webpack"]
+  "plugins": ["jest"]
 }
