@@ -46,12 +46,12 @@ const weatherAPI = (() => {
       date: day.date,
       conditionText: day.day.condition.text,
       conditionIcon: `https:${day.day.condition.icon.slice(2)}`,
-      tempAvgC: day.day.avgtemp_c,
-      tempAvgF: day.day.avgtemp_f,
-      tempLowC: day.day.mintemp_c,
-      tempLowF: day.day.mintemp_f,
-      tempHighC: day.day.maxtemp_c,
-      tempHighF: day.day.maxtemp_f,
+      tempAvgC: day.day.avgtemp_c.toFixed(0),
+      tempAvgF: day.day.avgtemp_f.toFixed(0),
+      tempLowC: day.day.mintemp_c.toFixed(0),
+      tempLowF: day.day.mintemp_f.toFixed(0),
+      tempHighC: day.day.maxtemp_c.toFixed(0),
+      tempHighF: day.day.maxtemp_f.toFixed(0),
       humidity: day.day.avghumidity,
       windSpeedKph: day.day.maxwind_kph,
       windSpeedMph: day.day.maxwind_mph,
@@ -84,6 +84,8 @@ const weatherAPI = (() => {
     const next24HoursData = hoursData.slice(currentHour, currentHour + 24);
     next24HoursData.forEach((hour) => {
       hour.condition.icon = `https:${hour.condition.icon.slice(2)}`;
+      hour.temp_c = hour.temp_c.toFixed(0);
+      hour.temp_f = hour.temp_f.toFixed(0);
     });
     return next24HoursData;
   }
